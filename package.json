@@ -1,0 +1,27 @@
+{
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "book_app",
+  "description": "**Author**: Mohammad Za'areer **Version**: 1.0.0",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MOH-ZR/book_app.git"
+  },
+  "author": "Mohammad Za'areer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MOH-ZR/book_app/issues"
+  },
+  "homepage": "https://github.com/MOH-ZR/book_app#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "superagent": "^6.1.0"
+  }
+}
