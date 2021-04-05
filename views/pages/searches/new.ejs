@@ -19,8 +19,21 @@
         </nav>
     </header>
     <main>
-        <h2>My Bookshelf</h2>
-        <div></div>
+        <h4>Search by Title or Author</h4>
+        <form action="/searches" method="post">
+            <fieldset>
+                <input type="text" name="search" placeholder="Enter a title or author" required>
+                <div class="radioInput">
+                    <label for="title">Title</label>
+                    <input type="radio" name="searchBy" value="title" id="title" required>
+                </div>
+                <div class="radioInput">
+                    <label for="author">Author</label>
+                    <input type="radio" name="searchBy" value="author" id="author" required>
+                </div>
+                <input id="btn" type="submit" value="Search the Google Books API">
+            </fieldset>
+        </form>
     </main>
     <footer>
         <div>

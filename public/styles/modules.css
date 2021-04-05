@@ -1,0 +1,29 @@
+span {
+    padding: 7px;
+    border-radius: 5px;
+    background-color: rgb(192, 191, 192);
+    height: 60px !important;
+}
+
+li {
+    display: inline;
+    float: right;
+    color: rgb(192, 191, 192);
+    font-size: 30px;
+    margin-right: 80px;
+    padding-top: 3rem;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: whitesmoke;
+}
+
+span:hover {
+    background-color: whitesmoke;
+}
