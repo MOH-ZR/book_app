@@ -11,15 +11,22 @@ const cors = require('cors');
 // Application Setup
 const app = express();
 const PORT = process.env.PORT || 3030;
+const ENV = process.env.ENV;
 const DATABASE_URL = process.env.DATABASE_URL;
 app.use(cors());
 
-// Database Connection Setup
-const client = new pg.Client({
-    connectionString: DATABASE_URL,
-});
 
-
+let client
+let div = '';
+div = ENV;
+if (div = 'div') {
+    // Database Connection Setup
+    client = new pg.Client({
+        connectionString: DATABASE_URL,
+    });
+} else {
+    client['ssl'] = { rejectUnauthorized: false };
+}
 
 // tell server that all stylesheets inside public 
 app.use(express.static(__dirname + '/public'));
