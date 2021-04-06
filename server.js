@@ -1,10 +1,12 @@
 'use strict';
+require('dotenv').config();
 
 // Application Dependencies
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
 const cors = require('cors');
+
 
 // Application Setup
 const app = express();
@@ -14,7 +16,7 @@ app.use(cors());
 
 // Database Connection Setup
 const client = new pg.Client({
-    connectionString: DATABASE_URL
+    connectionString: DATABASE_URL,
 });
 
 
@@ -32,7 +34,10 @@ app.set('view engine', 'ejs');
 // Renders the home page
 app.get('/', renderHomePage);
 
-// Renders the search form
+app.get('/books/:id', viewBookDetails);
+
+app.post('/books', addBook)
+    // Renders the search form
 app.get('/searches/new', showForm);
 
 // Creates a new search to the Google Books API
@@ -48,13 +53,50 @@ function Book(info) {
     this.image = info.imageLinks.smallThumbnail || 'https://i.imgur.com/J5LVHEL.jpeg';
     this.title = info.title || 'No title available';
     this.author = info.authors || ' ';
+    this.isbn = info.industryIdentifiers[0].identifier || ' '
     this.description = info.description || ' ';
 }
 
 // Note that .ejs file extension is not required
 function renderHomePage(request, response) {
+    const sqlQuery = `SELECT * FROM books`;
 
-    response.render('pages/index');
+    // query the database
+    client.query(sqlQuery).then(results => {
+
+        response.render('pages/index', { savedBooks: results.rows, booksNumber: results.rows.length })
+    });
+}
+
+function addBook(request, response) {
+    const { title, author, isbn, image, description } = request.body;
+    const safeValues = [title, author, isbn, image, description];
+    const bookObj = {
+        'image_url': image,
+        'title': title,
+        'author': author,
+        'isbn': isbn,
+        'description': description
+    }
+    const sqlQuery = 'INSERT INTO books (title, author, isbn, image_url, description) VALUES ($1, $2, $3, $4, $5);';
+    client.query(sqlQuery, safeValues).then((results) => {
+        response.render('pages/books/show', { bookDetails: bookObj });
+    }).catch(error => {
+        handleError(error, response);
+    });
+}
+
+function viewBookDetails(request, response) {
+
+    const bookId = request.params.id;
+    const safeValues = [bookId];
+    const sqlSelectQuery = 'SELECT * FROM books WHERE id=$1';
+
+    client.query(sqlSelectQuery, safeValues).then(results => {
+        response.render('pages/books/show', { bookDetails: results.rows[0] });
+    }).catch(error => {
+        handleError(error, response);
+    });
 }
 
 function showForm(request, response) {
