@@ -26,11 +26,11 @@
                 <%= book.description %>
             </p>
             <form id="selectBook" action="/books" method="POST">
-                <input type="text" name="image" value="<%= book.image %>" style="display: none;">
-                <input type="text" name="title" value="<%= book.title %>" style="display: none;">
-                <input type="text" name="author" value="<%= book.author %>" style="display: none;">
-                <input type="text" name="isbn" value="<%= book.isbn %>" style="display: none;">
-                <input type="text" name="description" value="<%= book.description %>" style="display: none;">
+                <input type="hidden" name="image" value="<%= book.image %>">
+                <input type="hidden" name="title" value="<%= book.title %>">
+                <input type="hidden" name="author" value="<%= book.author %>">
+                <input type="hidden" name="isbn" value="<%= book.isbn %>">
+                <input type="hidden" name="description" value="<%= book.description %>">
                 <button type="submit">Select this book</button>
             </form>
             <% }); %>

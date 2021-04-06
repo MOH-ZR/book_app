@@ -1,0 +1,24 @@
+<button onclick="handle(this)">update detail</button>
+
+<script>
+    function handle(element) {
+        const formElement = document.getElementsByTagName('form');
+        formElement.item(0).style.display = 'block';
+        formElement.item(1).style.display = 'block';
+        element.style.display = "none";
+    }
+</script>
+
+<form action="/books/<%=bookDetails.id%>?_method=DELETE" method="POST" style="display:none;">
+    <input type="hidden" value="<%= bookDetails.id %>">
+    <input type="submit" value="delete book">
+</form>
+
+<form action="/books/<%=bookDetails.id%>?_method=PUT" method="POST" style="display:none;">
+    <input type="text" name="title" value="<%= bookDetails.title %>">
+    <input type="text" name="author" value="<%= bookDetails.author %>">
+    <input type="text" name="isbn" value="<%= bookDetails.isbn %>">
+    <input type="text" name="image_url" value="<%= bookDetails.image_url %>">
+    <input type="text" name="description" value="<%= bookDetails.description %>">
+    <input type="submit" value="update book">
+</form>
