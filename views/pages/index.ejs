@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../layout/head') %>
+</head>
+
+<body>
+    <header>
+        <%- include('../layout/header') %>
+    </header>
+    <main>
+        <h2>My Bookshelf</h2>
+        <div>
+            <p id="num">
+                Total:
+                <%= booksNumber %>
+                    books
+            </p>
+            <div id="bookshelf">
+                <% savedBooks.forEach(book => {%>
+                    <div id="card">
+                        <img src="<%= book.image_url %>">
+                        <p>
+                            <%= book.title %>
+                        </p>
+                        <p>
+                            <%= book.author %>
+                        </p>
+                        <a href='/books/<%= book.id %>' target="_blank" rel="noopener noreferrer">View details</a>
+                    </div>
+                    <% }); %>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <%- include('../layout/footer')%>
+    </footer>
+</body>
+
+</html>
